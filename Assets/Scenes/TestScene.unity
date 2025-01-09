@@ -155,7 +155,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 21a1bd28cf2af374280110d39cf52db3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cellType: 4
+  cellType: 0
   moveBackAmount: 5
 --- !u!65 &97825526
 BoxCollider:
@@ -469,7 +469,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 21a1bd28cf2af374280110d39cf52db3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cellType: 3
+  cellType: 0
   moveBackAmount: 1
 --- !u!65 &380648173
 BoxCollider:
@@ -890,6 +890,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveDuration: 0.5
+  isSkipTurn: 0
 --- !u!1 &568581695
 GameObject:
   m_ObjectHideFlags: 0
@@ -1162,7 +1163,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 21a1bd28cf2af374280110d39cf52db3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cellType: 4
+  cellType: 0
   moveBackAmount: 5
 --- !u!65 &691178719
 BoxCollider:
@@ -1422,6 +1423,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveDuration: 0.5
+  isSkipTurn: 0
 --- !u!1 &1039098120
 GameObject:
   m_ObjectHideFlags: 0
@@ -1454,7 +1456,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 21a1bd28cf2af374280110d39cf52db3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cellType: 1
+  cellType: 0
   moveBackAmount: 1
 --- !u!65 &1039098122
 BoxCollider:
@@ -1574,7 +1576,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 21a1bd28cf2af374280110d39cf52db3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cellType: 1
+  cellType: 0
   moveBackAmount: 1
 --- !u!65 &1044548724
 BoxCollider:
@@ -1694,7 +1696,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 21a1bd28cf2af374280110d39cf52db3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cellType: 4
+  cellType: 0
   moveBackAmount: 5
 --- !u!65 &1140157605
 BoxCollider:
@@ -2028,7 +2030,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 21a1bd28cf2af374280110d39cf52db3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cellType: 1
+  cellType: 0
   moveBackAmount: 1
 --- !u!65 &1455058799
 BoxCollider:
@@ -2357,6 +2359,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveDuration: 0.5
+  isSkipTurn: 0
 --- !u!1 &1633528264
 GameObject:
   m_ObjectHideFlags: 0
@@ -3109,6 +3112,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveDuration: 0.5
+  isSkipTurn: 0
 --- !u!1 &2135644986
 GameObject:
   m_ObjectHideFlags: 0

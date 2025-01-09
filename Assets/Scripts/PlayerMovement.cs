@@ -36,6 +36,7 @@ public class PlayerMovement : MonoBehaviour
     public void SkipTurn()
     {
         isSkipTurn = true;
+        Debug.Log("Skip Turn");
     }
 
     private IEnumerator MoveThroughCells(int targetCellIndex)
