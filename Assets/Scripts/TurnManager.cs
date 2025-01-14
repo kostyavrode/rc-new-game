@@ -10,7 +10,7 @@ public class TurnManager : MonoBehaviour
     public int currentPlayerIndex = 0; // Индекс текущего игрока
     public int totalPlayers = 2; // Количество игроков (от 2 до 4)
 
-    private bool isPlayerMoving = false; // Флаг, чтобы предотвратить смену игрока во время движения
+    public bool isPlayerMoving = false; // Флаг, чтобы предотвратить смену игрока во время движения
 
     private void Awake()
     {
@@ -30,7 +30,7 @@ public class TurnManager : MonoBehaviour
         DiceController.OnDiceRolled -= RollResult;
     }
 
-    private void Start()
+    public void StartPlayerCheck()
     {
         // Убедимся, что количество игроков в пределах от 2 до 4
         if (totalPlayers < 2 || totalPlayers > 4)
@@ -51,7 +51,7 @@ public class TurnManager : MonoBehaviour
         }
 
         // Запуск игры с первого игрока
-        StartTurn();
+        
     }
 
     private void Update()
@@ -69,11 +69,29 @@ public class TurnManager : MonoBehaviour
             DiceController.instance.DiceRoll();
         }
     }
+    
+    public void TurnButton()
+    {
+        if (!isPlayerMoving)
+        {
+            currentPlayerIndex = (currentPlayerIndex + 1) % totalPlayers;
+            PlayerMovement currentPlayer = players[currentPlayerIndex];
+            if (currentPlayer.isSkipTurn)
+            {
+                currentPlayer.isSkipTurn = false;
+                UITemplate.instance.ShowSkipTurnMessage();
+                EndTurn();
+                return;
+            }
+            DiceController.instance.DiceRoll();
+            CameraController.instance.LookAtDice();
+        }
+    }
     private void RollResult(int result)
     {
-        
         PlayerMovement currentPlayer = players[currentPlayerIndex];
         currentPlayer.RollResult(result);
+        CameraController.instance.LookAtCurrentPlayer(currentPlayer.gameObject);
     }
 
     public void StartTurn()
@@ -83,6 +101,8 @@ public class TurnManager : MonoBehaviour
         
         // Включаем текущего игрока
         PlayerMovement currentPlayer = players[currentPlayerIndex];
+
+        UITemplate.instance.ShowCurrentPlayer(currentPlayerIndex + 1);
 
         currentPlayer.CorrectPlayerPosition();
     }

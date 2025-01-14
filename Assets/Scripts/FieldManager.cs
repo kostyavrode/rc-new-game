@@ -5,13 +5,14 @@ public class FieldManager : MonoBehaviour
 {
     public static FieldManager Instance;
 
-    public List<Cell> cells = new List<Cell>(); // Список всех клеток на поле
+    public Cell[] cells; // Список всех клеток на поле
 
     private void Awake()
     {
         if (Instance == null)
         {
             Instance = this;
+            cells=GetComponentsInChildren<Cell>();
         }
         else
         {

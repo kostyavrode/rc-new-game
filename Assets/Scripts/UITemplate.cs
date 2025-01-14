@@ -8,13 +8,18 @@ public class UITemplate : MonoBehaviour
 {
     public static UITemplate instance;
 
+    public TurnManager turnManager;
+
     [SerializeField] private GameObject inGamePanel;
     [SerializeField] private GameObject losePanel;
     [SerializeField] private GameObject winPanel;
+
+    [SerializeField] private GameObject skipTurnObject;
     
     [SerializeField] private TMP_Text moneyBar;
     [SerializeField] private TMP_Text passesBar;
     [SerializeField] private TMP_Text winningsBar;
+
     private void Awake()
     {
         instance = this;
@@ -29,9 +34,15 @@ public class UITemplate : MonoBehaviour
     {
         moneyBar.text = data;
     }
+
+    public void ShowSkipTurnMessage()
+    {
+        StartCoroutine(WaitToDeactivateMessage(skipTurnObject));
+    }
     public void StartGame()
     {
         GameManager.instance.ChangeGameState(GameState.PLAYING);
+        turnManager.StartTurn();
     }
     public void PauseGame()
     {
@@ -60,9 +71,9 @@ public class UITemplate : MonoBehaviour
         }
     }
 
-    public void ShowPasses(string target, string success)
+    public void ShowCurrentPlayer(int playerNum)
     {
-        passesBar.text = success + " | " + target;
+        passesBar.text = "Current turn: Player"+playerNum.ToString();
     }
     public void RestartGame()
     {
@@ -71,5 +82,12 @@ public class UITemplate : MonoBehaviour
     public void ExitApp()
     {
         Application.Quit();
+    }
+
+    private IEnumerator WaitToDeactivateMessage(GameObject g)
+    {
+        g.SetActive(true);
+        yield return new WaitForSeconds(2);
+        g.SetActive(false);
     }
 }

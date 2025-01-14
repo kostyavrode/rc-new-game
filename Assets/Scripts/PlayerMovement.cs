@@ -4,6 +4,8 @@ using System.Collections;
 
 public class PlayerMovement : MonoBehaviour
 {
+    public static PlayerMovement instance;
+
     public float moveDuration = 0.5f;  // Время движения по клетке
     private int currentCellIndex = 0;  // Индекс текущей клетки
 
@@ -12,24 +14,34 @@ public class PlayerMovement : MonoBehaviour
 
     public bool isSkipTurn;
 
+
+    private void Awake()
+    {
+        instance = this;
+    }
+
     public void MovePlayer(int diceRoll)
     {
         if (isMovingBack)
         {
-            // Если уже выполняется отбрасывание назад, не запускаем движение
             return;
         }
         // Считываем текущую клетку и целевую клетку
         int targetCellIndex = currentCellIndex + diceRoll;
 
         // Проверяем, что целевая клетка существует
-        if (targetCellIndex < FieldManager.Instance.cells.Count)
+        if (targetCellIndex < FieldManager.Instance.cells.Length)
         {
             StartCoroutine(MoveThroughCells(targetCellIndex));  // Запускаем корутину для прыжков
         }
         else
         {
-            Debug.Log("Выход за пределы поля!");
+            while (targetCellIndex >= FieldManager.Instance.cells.Length)
+            {
+                targetCellIndex--;
+            }
+            StartCoroutine(MoveThroughCells(targetCellIndex));
+            UITemplate.instance.EndGame(true);
         }
     }
 
@@ -85,7 +97,7 @@ public class PlayerMovement : MonoBehaviour
                     break;
 
                 case Cell.CellType.MoveForward:
-                    int moveForwardTarget = Mathf.Min(FieldManager.Instance.cells.Count - 1, currentCellIndex + finalCell.moveBackAmount);
+                    int moveForwardTarget = Mathf.Min(FieldManager.Instance.cells.Length - 1, currentCellIndex + finalCell.moveBackAmount);
                     if (moveForwardTarget != currentCellIndex)
                     {
                         yield return MoveThroughCells(moveForwardTarget); // Перемещение вперед
@@ -107,24 +119,6 @@ public class PlayerMovement : MonoBehaviour
         TurnManager.Instance.EndTurn();
     }
 
-
-
-    public void RollDice()
-    {
-        //if (isSkipTurn)
-        //{
-        //    TurnManager.Instance.EndTurn();
-        //    isSkipTurn = false;
-        //}
-        //// Логика для броска кубика (попробуем сгенерировать новый результат)
-        //int diceRoll = Random.Range(1, 7);
-        //Debug.Log($"Бросок кубика: {diceRoll}");
-        //TurnManager.Instance.SetPlayerMoving(true);
-        //MovePlayer(diceRoll); // После броска кубика перемещаем игрока
-
-        //DiceController.instance.DiceRoll();
-    }
-
     public void RollResult(int result)
     {
         TurnManager.Instance.SetPlayerMoving(true);
@@ -138,7 +132,7 @@ public class PlayerMovement : MonoBehaviour
 
         // Проверяем, не выходит ли игрок за пределы поля
         int targetCellIndex = currentCellIndex + amount;
-        targetCellIndex = Mathf.Min(FieldManager.Instance.cells.Count - 1, targetCellIndex); // Ограничиваем пределы
+        targetCellIndex = Mathf.Min(FieldManager.Instance.cells.Length - 1, targetCellIndex); // Ограничиваем пределы
 
         // Плавно перемещаем игрока вперед
         StartCoroutine(MoveThroughCells(targetCellIndex)); // Запускаем корутину для перемещения вперед

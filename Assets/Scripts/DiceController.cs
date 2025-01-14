@@ -5,6 +5,8 @@ public class DiceController : MonoBehaviour
 {
     public static System.Action<int> OnDiceRolled; // Событие для передачи результата броска
 
+    public bool isRolling;
+
     public static DiceController instance;
 
     private Vector3[] faceDirections = new Vector3[]
@@ -27,7 +29,7 @@ public class DiceController : MonoBehaviour
     public void DiceRoll()
     {
         int randomFace = Random.Range(0, faceDirections.Length);
-
+        isRolling = true;
         Debug.Log(randomFace+1);
 
         Vector3 randomRotation = new Vector3(
@@ -45,7 +47,7 @@ public class DiceController : MonoBehaviour
                 // Установим итоговое положение на выбранную грань
                 transform.DORotate(faceDirections[randomFace], 0.5f).OnComplete(() =>
                 {
-                    // Вызываем событие с результатом броска (грань от 1 до 6)
+                    isRolling = false;
                     OnDiceRolled?.Invoke(randomFace + 1);
                 });
             });
