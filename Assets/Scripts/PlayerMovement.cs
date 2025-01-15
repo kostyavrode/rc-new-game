@@ -61,7 +61,7 @@ public class PlayerMovement : MonoBehaviour
 
             Vector3 direction = nextCell.position - transform.position;
             direction.y = 0;
-            transform.DORotateQuaternion(Quaternion.LookRotation(direction), moveDuration / 2);
+            transform.DORotateQuaternion(Quaternion.LookRotation(-direction), moveDuration / 2);
 
             yield return transform.DOMove(nextCell.position, moveDuration).WaitForCompletion();
 
@@ -75,10 +75,10 @@ public class PlayerMovement : MonoBehaviour
 
             Vector3 direction = previousCell.position - transform.position;
             direction.y = 0;
-            transform.DORotateQuaternion(Quaternion.LookRotation(direction), moveDuration / 2);
+            transform.DORotateQuaternion(Quaternion.LookRotation(-direction), moveDuration / 2);
 
             yield return transform.DOMove(previousCell.position, moveDuration).WaitForCompletion();
-
+            //transform.DOLookAt(FieldManager.Instance.cells[currentCellIndex+1].transform.position,0.1f);
             currentCellIndex--;
         }
 

@@ -30,8 +30,8 @@ public class CameraController : MonoBehaviour
 
     public void GameStartedMove()
     {
-        transform.DOMove(startPosition.position, 1);
-        transform.DOLookAt(startPosition.position, 0.5f);
+        //transform.DOMove(startPosition.position, 1);
+        //transform.DOLookAt(startPosition.position, 0.5f);
     }
     
     public void LookAtDice()
