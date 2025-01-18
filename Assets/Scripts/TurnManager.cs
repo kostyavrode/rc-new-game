@@ -56,8 +56,8 @@ public class TurnManager : MonoBehaviour
 
     private void Update()
     {
-        // Проверяем, нажал ли текущий игрок на кнопку для броска кубика
-        if (!isPlayerMoving && Input.GetKeyDown(KeyCode.J)) // Если кнопка J нажата
+
+        if (!isPlayerMoving && Input.GetKeyDown(KeyCode.J))
         {
             currentPlayerIndex = (currentPlayerIndex + 1) % totalPlayers;
             PlayerMovement currentPlayer = players[currentPlayerIndex];
@@ -74,6 +74,7 @@ public class TurnManager : MonoBehaviour
     {
         if (!isPlayerMoving)
         {
+            UITemplate.instance.RollButton.SetActive(false);
             currentPlayerIndex = (currentPlayerIndex + 1) % totalPlayers;
             PlayerMovement currentPlayer = players[currentPlayerIndex];
             if (currentPlayer.isSkipTurn)
@@ -99,7 +100,6 @@ public class TurnManager : MonoBehaviour
         if (isPlayerMoving)
             return;
         
-        // Включаем текущего игрока
         PlayerMovement currentPlayer = players[currentPlayerIndex];
 
         UITemplate.instance.ShowCurrentPlayer(currentPlayerIndex + 1);
@@ -109,7 +109,6 @@ public class TurnManager : MonoBehaviour
 
     public void EndTurn()
     {
-        // Завершаем ход текущего игрока
         isPlayerMoving = false;
 
         StartTurn();
@@ -117,6 +116,7 @@ public class TurnManager : MonoBehaviour
 
     public void SetPlayerMoving(bool isMoving)
     {
-        isPlayerMoving = isMoving; // Устанавливаем флаг движения
+        isPlayerMoving = isMoving;
+        UITemplate.instance.RollButton.SetActive(!isMoving);
     }
 }

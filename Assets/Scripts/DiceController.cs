@@ -7,6 +7,8 @@ public class DiceController : MonoBehaviour
 
     public bool isRolling;
 
+    public GameObject fireEffect;
+
     public static DiceController instance;
 
     private Vector3[] faceDirections = new Vector3[]
@@ -35,12 +37,11 @@ public class DiceController : MonoBehaviour
         Vector3 randomRotation = new Vector3(
             Random.Range(360, 720), // Случайный поворот по X
             Random.Range(360, 720), // Случайный поворот по Y
-            Random.Range(360, 720)  // Случайный поворот по Z\\
-
-
+            Random.Range(360, 720)  // Случайный поворот по Z
         );
 
         // Анимация вращения с использованием DoTween
+        fireEffect.SetActive(true);
         transform.DORotate(randomRotation, 1f, RotateMode.FastBeyond360)
             .OnComplete(() =>
             {
@@ -49,6 +50,7 @@ public class DiceController : MonoBehaviour
                 {
                     isRolling = false;
                     OnDiceRolled?.Invoke(randomFace + 1);
+                    fireEffect.SetActive(false);
                 });
             });
     }

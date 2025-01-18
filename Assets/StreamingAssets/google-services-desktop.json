@@ -1,0 +1,31 @@
+{
+  "project_info": {
+    "project_number": "953549436173",
+    "project_id": "burning-dice",
+    "storage_bucket": "burning-dice.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:953549436173:ios:ca0cd0cf68bcfe1740ec44",
+        "android_client_info": {
+          "package_name": "com.BurningDice"
+        }
+      },
+      "api_key": [
+        {
+          "current_key": "AIzaSyBl_m4duPXos_8fQEirJoLopNMypmw8wHg"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 0
+        },
+        "appinvite_service": {
+          "status": 1
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

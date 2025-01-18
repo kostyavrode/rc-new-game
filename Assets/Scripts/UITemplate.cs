@@ -19,6 +19,9 @@ public class UITemplate : MonoBehaviour
     [SerializeField] private TMP_Text moneyBar;
     [SerializeField] private TMP_Text passesBar;
     [SerializeField] private TMP_Text winningsBar;
+    [SerializeField] private TMP_Text winnerText;
+
+    public GameObject RollButton;
 
     private void Awake()
     {
@@ -33,6 +36,11 @@ public class UITemplate : MonoBehaviour
     public void ShowMoney(string data)
     {
         moneyBar.text = data;
+    }
+
+    public void ShowWinner(string winner)
+    {
+        winnerText.text = winner;
     }
 
     public void ShowSkipTurnMessage()
@@ -62,7 +70,8 @@ public class UITemplate : MonoBehaviour
             winPanel.SetActive(true);
             PlayerPrefs.SetInt("Levels",PlayerPrefs.GetInt("Levels")+1);
             Player.instance.AddMoney(10);
-            winningsBar.text="+10";
+            //winningsBar.text="+10";
+
             ShowMoney(Player.instance.GetPlayerMoney().ToString());
         }
         else
@@ -73,7 +82,7 @@ public class UITemplate : MonoBehaviour
 
     public void ShowCurrentPlayer(int playerNum)
     {
-        passesBar.text = "Current turn: Player"+playerNum.ToString();
+        passesBar.text = "Player "+playerNum.ToString();
     }
     public void RestartGame()
     {
@@ -89,5 +98,6 @@ public class UITemplate : MonoBehaviour
         g.SetActive(true);
         yield return new WaitForSeconds(2);
         g.SetActive(false);
+        RollButton.gameObject.SetActive(true);
     }
 }

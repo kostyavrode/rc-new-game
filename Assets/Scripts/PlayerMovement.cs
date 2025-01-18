@@ -56,6 +56,7 @@ public class PlayerMovement : MonoBehaviour
         // Плавно перемещаем игрока через каждую клетку, пока не дойдем до целевой клетки
         while (currentCellIndex < targetCellIndex)
         {
+            GameAudioHelper.instance.PlayMoveSound();
             Transform currentCell = FieldManager.Instance.cells[currentCellIndex].transform;
             Transform nextCell = FieldManager.Instance.cells[currentCellIndex + 1].transform;
 
@@ -64,12 +65,13 @@ public class PlayerMovement : MonoBehaviour
             transform.DORotateQuaternion(Quaternion.LookRotation(-direction), moveDuration / 2);
 
             yield return transform.DOMove(nextCell.position, moveDuration).WaitForCompletion();
-
+            
             currentCellIndex++;
         }
 
         while (currentCellIndex > targetCellIndex)
         {
+            GameAudioHelper.instance.PlayMoveSound();
             Transform currentCell = FieldManager.Instance.cells[currentCellIndex].transform;
             Transform previousCell = FieldManager.Instance.cells[currentCellIndex - 1].transform;
 
@@ -78,7 +80,7 @@ public class PlayerMovement : MonoBehaviour
             transform.DORotateQuaternion(Quaternion.LookRotation(-direction), moveDuration / 2);
 
             yield return transform.DOMove(previousCell.position, moveDuration).WaitForCompletion();
-            //transform.DOLookAt(FieldManager.Instance.cells[currentCellIndex+1].transform.position,0.1f);
+            
             currentCellIndex--;
         }
 

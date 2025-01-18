@@ -18,8 +18,9 @@ public class SettingsController : MonoBehaviour
     public Button vibrateButton;
     public TMP_Text vibrateButtonText;
 
-    private bool isVibrateEnabled;
-    private bool isSoundEnabled;
+    public bool isVibrateEnabled;
+    public bool isSoundEnabled;
+
 
     private void Start()
     {
