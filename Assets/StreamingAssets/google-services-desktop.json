@@ -24,7 +24,12 @@
         "appinvite_service": {
           "status": 1
         }
-      }
+      },
+      "oauth_client": [
+        {
+          "client_id": "953549436173-n23qbj8qa7po16oiava0ih8ojkv3c8sh.apps.googleusercontent.com"
+        }
+      ]
     }
   ],
   "configuration_version": "1"
