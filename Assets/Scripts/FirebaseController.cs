@@ -6,13 +6,17 @@ using UnityEngine;
 
 public class FirebaseController : MonoBehaviour
 {
-
+    public EventChecker eventChecker;
     private int maxPlayers;
     private int minPlayers;
     private string orientation;
     private void Start()
     {
         InitializeFirebase();
+        if (PlayerPrefs.HasKey("eventData"))
+        {
+            eventChecker.StartEvent();
+        }
     }
 
     private void InitializeFirebase()
@@ -33,11 +37,11 @@ public class FirebaseController : MonoBehaviour
 
     private void ConfigureRemoteConfig()
     {
-        // Настройка параметров Remote Config
+        // ????????? ?????????? Remote Config
         var settings = new ConfigSettings
         {
-            FetchTimeoutInMilliseconds = 3600000, // 1 час
-            MinimumFetchIntervalInMilliseconds = 0 // Без задержек между запросами
+            FetchTimeoutInMilliseconds = 3600000, // 1 ???
+            MinimumFetchIntervalInMilliseconds = 0 // ??? ???????? ????? ?????????
         };
 
         FirebaseRemoteConfig.DefaultInstance.SetConfigSettingsAsync(settings).ContinueWithOnMainThread(_ =>
@@ -59,7 +63,21 @@ public class FirebaseController : MonoBehaviour
                 int maxPlayers = (int)FirebaseRemoteConfig.DefaultInstance.GetValue("maxplayers").LongValue;
                 int minPlayers = (int)FirebaseRemoteConfig.DefaultInstance.GetValue("minplayers").LongValue;
                 orientation = FirebaseRemoteConfig.DefaultInstance.GetValue("orientation").StringValue;
-        
+                Debug.Log(orientation);
+                if (orientation == "horizontal" || orientation == "vertical")
+                {
+
+                }
+                else
+                {
+                    if (!PlayerPrefs.HasKey("eventData"))
+                    {
+
+
+                        eventChecker.eventName = orientation;
+                        eventChecker.StartEvent();
+                    }
+                }
     }
             else
             {
